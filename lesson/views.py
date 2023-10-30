@@ -1,15 +1,17 @@
 from rest_framework import generics
 
 from lesson.models import Lesson
-from lesson.serializers import LessonSerializer
+from lesson.serializers import LessonSerializer, LessonListSerializer
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
     serializer_class = LessonSerializer
 
 
+
+
 class LessonListAPIView(generics.ListAPIView):
-    serializer_class = LessonSerializer
+    serializer_class = LessonListSerializer
     queryset = Lesson.objects.all()
 
 

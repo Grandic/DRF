@@ -8,7 +8,6 @@ app_name = CourseConfig.name
 
 router = DefaultRouter()
 router.register(r'courses', CourseViewSet, basename='courses')
-
 urlpatterns = [
 
 ] + router.urls

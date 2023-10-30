@@ -8,7 +8,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание')
     image = models.ImageField(upload_to='lessons/', verbose_name='превью (картинка)', **NULLABLE)
     link = models.URLField(max_length=300, verbose_name='ссылка на видео', **NULLABLE)
-    course = models.ManyToManyField(Course)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
 
     def __str__(self):
