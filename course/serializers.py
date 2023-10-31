@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
+from rest_framework.permissions import IsAuthenticated
 
 from course.models import Course
 from lesson.models import Lesson
@@ -14,7 +15,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-
+        permission_classes = [IsAuthenticated]
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     lessons_in_course = SerializerMethodField()
@@ -25,3 +26,4 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+        permission_classes = [IsAuthenticated]
