@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.permissions import IsAuthenticated
 
+from lesson.models import Lesson
 from payments.models import Payments
 from users.models import User
 
@@ -11,6 +12,7 @@ class Userserializer(serializers.ModelSerializer):
 
     def get_payment(self, user):
         return [pay.payment_date for pay in Payments.objects.filter(user=user)]
+
 
 
     class Meta:

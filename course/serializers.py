@@ -3,6 +3,7 @@ from rest_framework.fields import SerializerMethodField
 from rest_framework.permissions import IsAuthenticated
 
 from course.models import Course
+from course.permissions import IsSuperUser, IsModerator, IsOwner
 from lesson.models import Lesson
 
 
@@ -15,7 +16,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [IsAuthenticated]
+        permission_classes = [IsAuthenticated, IsModerator|IsOwner]
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     lessons_in_course = SerializerMethodField()
@@ -26,4 +27,22 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [IsAuthenticated]
+        permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+
+class CourseCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+        permission_classes = [IsAuthenticated, IsSuperUser]
+
+class CourseUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+        permission_classes = [IsAuthenticated, IsOwner]
+
+class CourseDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+        permission_classes = [IsAuthenticated, IsOwner]

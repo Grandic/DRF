@@ -3,7 +3,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.relations import SlugRelatedField
 
 from course.models import Course
-from course.permissions import IsOwnerorStaff
 from lesson.models import Lesson
 
 
@@ -28,3 +27,7 @@ class LessonDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+
+
+
+
