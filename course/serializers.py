@@ -16,7 +16,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [IsAuthenticated, IsModerator|IsOwner]
+        permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     lessons_in_course = SerializerMethodField()

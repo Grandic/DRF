@@ -1,13 +1,18 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from course.permissions import IsSuperUser
-from users.models import User
-from users.serializers import Userserializer
+
+from users.serializers import *
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = Userserializer
+    default_serializer = Userserializer
     queryset = User.objects.all()
-    permission_classes = [IsSuperUser]
-
+    serializer_classes = {
+        'create': UserCreateSerializer,
+        'retrieve': UserDetailSerializer,
+        'update': UserUpdateSerializer,
+        'destroy': UserDeleteSerializer
+    }
+    def get_serializer_class(self):
+        return self.serializer_classes.get(self.action, self.default_serializer)
