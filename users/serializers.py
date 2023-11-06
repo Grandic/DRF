@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from course.permissions import IsModerator, IsOwner, IsSuperUser
 from lesson.models import Lesson
@@ -17,30 +17,35 @@ class Userserializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        permission_classes = [IsAuthenticated]
+        permission_classes = [AllowAny]
+        #permission_classes = [IsAuthenticated]
 
 class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
         fields = '__all__'
-        permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        permission_classes = [AllowAny]
+        #permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        permission_classes = [IsAuthenticated, IsSuperUser]
+        permission_classes = [AllowAny]
+        #permission_classes = [IsAuthenticated, IsSuperUser]
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        permission_classes = [IsOwner]
+        permission_classes = [AllowAny]
+        #permission_classes = [IsOwner]
 
 class UserDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        permission_classes = [IsAuthenticated, IsOwner]
+        permission_classes = [AllowAny]
+        #permission_classes = [IsAuthenticated, IsOwner]
 

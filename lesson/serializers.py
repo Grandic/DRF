@@ -1,16 +1,17 @@
 from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.relations import SlugRelatedField
-
 from course.models import Course
+from course.validators import LinkValidator
 from lesson.models import Lesson
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    # link = serializers.URLField(validators=[LinkValidator], read_only=True)
 
     class Meta:
         model = Lesson
         fields = '__all__'
+        validators = [LinkValidator(field='link')]
 
 
 
