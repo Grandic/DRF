@@ -6,8 +6,6 @@ from lesson.models import Lesson
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    # link = serializers.URLField(validators=[LinkValidator], read_only=True)
-
     class Meta:
         model = Lesson
         fields = '__all__'

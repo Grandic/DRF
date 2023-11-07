@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import NULLABLE
+from django.conf import settings
 
 
 class Course(models.Model):
@@ -8,9 +9,10 @@ class Course(models.Model):
     description = models.TextField(verbose_name='описание', **NULLABLE)
     price = models.PositiveIntegerField(default=0, verbose_name='стоимость', **NULLABLE)
     link = models.URLField(max_length=300, verbose_name='ссылка на видео', **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} {self.owner} {self.link}'
 
     class Meta:
         verbose_name = 'курс'
@@ -25,7 +27,7 @@ class Subscription(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='подписка')
 
     def __str__(self):
-        return f'{self.is_active}'
+        return f'{self.user} {self.course} {self.is_active}'
 
     class Meta:
         verbose_name = 'подписка'

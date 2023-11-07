@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from course.models import Course, Subscription
 from course.permissions import IsSuperUser, IsModerator, IsOwner
@@ -17,8 +17,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [AllowAny]
-        #permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        permission_classes = [IsAuthenticated, IsSuperUser | IsModerator | IsOwner]
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     lessons_in_course = SerializerMethodField()
@@ -33,8 +32,7 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [AllowAny]
-        #permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        permission_classes = [IsAuthenticated, IsSuperUser | IsModerator | IsOwner]
 
 class CourseCreateSerializer(serializers.ModelSerializer):
     link = serializers.URLField(validators=[LinkValidator])
@@ -42,8 +40,7 @@ class CourseCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [AllowAny]
-        #permission_classes = [IsAuthenticated, IsSuperUser]
+        permission_classes = [IsAuthenticated, IsSuperUser]
 
 class CourseUpdateSerializer(serializers.ModelSerializer):
     link = serializers.URLField(validators=[LinkValidator])
@@ -51,27 +48,18 @@ class CourseUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [AllowAny]
-        #permission_classes = [IsAuthenticated, IsOwner]
+        permission_classes = [IsAuthenticated, IsSuperUser | IsModerator | IsOwner]
 
 class CourseDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        permission_classes = [AllowAny]
-        #permission_classes = [IsAuthenticated, IsOwner]
+        permission_classes = [IsAuthenticated, IsSuperUser]
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscription
-        fields = (
-            'user',
-            'course',
-            'is_active',
-        )
-
-        extra_kwargs = {
-            'user': {'required': False}
-        }
+        fields = '__all__'
+        permission_classes = [IsAuthenticated, IsSuperUser | IsModerator | IsOwner]
