@@ -12,7 +12,7 @@ class Course(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
-        return f'{self.name} {self.owner} {self.link}'
+        return f'{self.name} {self.owner} {self.link} {self.owner}'
 
     class Meta:
         verbose_name = 'курс'

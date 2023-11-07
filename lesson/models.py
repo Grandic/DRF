@@ -10,7 +10,7 @@ class Lesson(models.Model):
     image = models.ImageField(upload_to='lessons/', verbose_name='превью (картинка)', **NULLABLE)
     link = models.URLField(max_length=300, verbose_name='ссылка на видео', **NULLABLE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, **NULLABLE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
 
 
