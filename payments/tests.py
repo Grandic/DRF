@@ -1,3 +1,17 @@
-from django.test import TestCase
+import os
 
-# Create your tests here.
+import stripe
+
+
+stripe.api_key = os.environ.get("STRIPE_SK")
+
+print("Attempting charge...")
+
+resp = stripe.Charge.create(
+    amount=200,
+    currency="usd",
+    card="tok_visa",
+    description="customer@gmail.com",
+)
+
+print("Success: %r" % (resp))

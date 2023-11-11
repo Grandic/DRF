@@ -8,3 +8,5 @@ DB_NAME=
 DB_USER=
 DB_PASSWORD=
 SECRET_KEY='Django secret key'
+STRIPE_PK=''
+STRIPE_SK=''
