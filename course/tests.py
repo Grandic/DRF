@@ -1,5 +1,3 @@
-from itertools import count
-
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -233,7 +231,6 @@ class LessonsTestCase(APITestCase):
             {'id': self.user.pk, 'is_active': False, 'user': self.user.pk, 'course': self.course.pk, }
 
         )
-
 
     def test_sub_delete(self):
         """Test sub delete"""
