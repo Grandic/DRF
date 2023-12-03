@@ -31,6 +31,8 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - '8000:8000'
+    volumes:
+      - .:/code
     depends_on:
       db:
         condition: service_healthy
@@ -48,13 +50,10 @@ services:
     tty: true
     env_file:
       - .env
-    command: sh -c "sleep 10 && celery -A config beat -l info -S django"
+    command: celery -A config beat -l INFO -S django
     depends_on:
-      - celery
       - redis
       - app
-
-
 
 volumes:
   pg_data:
